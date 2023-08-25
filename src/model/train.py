@@ -7,12 +7,15 @@ import os
 import pandas as pd
 
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split  # Eklemeyi unutmayın
 
+import mlflow  # Eklemeyi unutmayın
+import mlflow.sklearn  # Eklemeyi unutmayın
 
 # define functions
 def main(args):
     # TO DO: enable autologging
-     mlflow.sklearn.autolog(registered_model_name="mlops-model")
+    mlflow.sklearn.autolog(registered_model_name="mlops-model")
 
     # read data
     df = get_csvs_df(args.training_data)
