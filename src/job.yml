@@ -8,7 +8,7 @@ inputs:
   training_data: 
     type: uri_folder 
     path: azureml:data-asset@latest
-  reg_rate: 0.02
+  reg_rate: 0.05
 environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
 compute: computee
 experiment_name: mlops-experiment
