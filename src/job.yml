@@ -12,5 +12,5 @@ inputs:
 environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
 compute: computee
 experiment_name: mlops-experiment
-display_name: training-job
+display_name: training-jobs
 description: A machine learning classification model training job.
