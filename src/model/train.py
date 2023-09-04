@@ -1,14 +1,10 @@
 # Import libraries
-
 import argparse
 import glob
 import os
-
 import pandas as pd
-
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split  # Eklemeyi unutmayın
-
 import mlflow  # Eklemeyi unutmayın
 import mlflow.sklearn  # Eklemeyi unutmayın
 
