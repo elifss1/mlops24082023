@@ -1,12 +1,13 @@
 # Import libraries
+
 import argparse
 import glob
 import os
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split  # Eklemeyi unutmayın
-import mlflow  # Eklemeyi unutmayın
-import mlflow.sklearn  # Eklemeyi unutmayın
+from sklearn.model_selection import train_test_split
+import mlflow
+
 
 # define functions
 def main(args):
@@ -40,6 +41,7 @@ def split_data(df):
     y = df['Diabetic'].values
     return train_test_split(X, y, test_size=0.30, random_state=0)
 
+
 def train_model(reg_rate, X_train, X_test, y_train, y_test):
     # train model
     LogisticRegression(C=1/reg_rate, solver="liblinear").fit(X_train, y_train)
@@ -60,6 +62,7 @@ def parse_args():
 
     # return args
     return args
+
 
 # run script
 if __name__ == "__main__":
