@@ -7,8 +7,8 @@ command: >-
 inputs:
   training_data: 
     type: uri_folder 
-    path: azureml:data-asset@latest
-  reg_rate: 0.06
+    path: azureml:diabetes-datastore-path:3
+  reg_rate: 0.01
 environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
 compute: computee
 experiment_name: mlops-experiment
