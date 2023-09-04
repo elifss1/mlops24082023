@@ -35,7 +35,7 @@ jobs:
           python -m pip install pytest
       - name: Run pytest 
         run: | 
-          pytest src/model/
+          pytest 
 
         
     
