@@ -15,5 +15,5 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Train a classification model
-      run: az ml job create --file ./src/job.yml --workspace-name ess-deneme --resource-group ESS-AI-ML
+      run: az ml job create --file ./src/dev-job.yml --workspace-name ess-deneme --resource-group ESS-AI-ML
 
