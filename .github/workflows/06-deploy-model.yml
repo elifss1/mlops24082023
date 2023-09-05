@@ -1,4 +1,4 @@
-name: Automated Azure Machine Trigger env
+name: Deploy model AML
 
 on:
   push:
