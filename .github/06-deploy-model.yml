@@ -59,4 +59,4 @@ jobs:
          run: |
           az ml online-deployment invoke --name my-endpoint --request-file sample_request.json --resource-group ESS-AI-ML --workspace-name ess-deneme
 
-        #yorum
+        #yorum...
