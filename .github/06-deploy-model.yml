@@ -1,0 +1,60 @@
+name: Automated Azure Machine Trigger env
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@main
+      - name: Install az ml extension
+        run: az extension add -n ml -y
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Train a classification model
+        run: |
+          az ml job create --file ./src/dev-job.yml \
+            --workspace-name ess-deneme \
+            --resource-group ESS-AI-ML \
+            --stream
+
+  production:
+    runs-on: ubuntu-latest
+    environment: prod-env
+    needs: experiment # "production" işinin "experiment" işinden sonra çalışmasını sağlar..
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@main
+      - name: Install az ml extension
+        run: az extension add -n ml -y
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Train a classification model
+        run: |
+          az ml job create --file ./src/prod-job.yml \
+            --workspace-name ess-deneme \
+            --resource-group ESS-AI-ML \
+            --stream
+    deployment:
+      runs-on: ubuntu-latest
+      environment: prod-env
+      needs: production
+      steps:
+        -name: create online endpoint
+         run: |
+          az ml online-endpoint create --file endpoint.yml --resource-group ESS-AI-ML --workspace-name ess-deneme
+        -name: create online deployment
+         run: |
+          az ml online-deployment create --file deployment.yaml --all-traffic --resource-group ESS-AI-ML --workspace-name ess-deneme
+        -name: test online deployment
+         run: |
+          az ml online-deployment invoke --name my-endpoint --request-file sample_request.json --resource-group ESS-AI-ML --workspace-name ess-deneme
