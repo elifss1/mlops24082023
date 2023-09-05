@@ -24,7 +24,7 @@ on:
           
           runs-on: ubuntu-latest
           environment: prod-env
-          needs: experiment # "production" işinin "experiment" işinden sonra çalışmasını sağlar..
+          needs: experiment # "production" işinin "experiment" işinden sonra çalışmasını sağlar...
           steps:
             - name: Check out repo
               uses: actions/checkout@main
