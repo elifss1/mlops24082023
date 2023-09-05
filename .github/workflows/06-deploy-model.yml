@@ -1,4 +1,4 @@
-name: Deploy model AML
+name: Deploy Model AML
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
   production:
     runs-on: ubuntu-latest
     environment: prod-env
-    needs: experiment # "production" işinin "experiment" işinden sonra çalışmasını sağlar..
+    needs: experiment
     steps:
       - name: Check out repo
         uses: actions/checkout@main
@@ -44,19 +44,18 @@ jobs:
             --workspace-name ess-deneme \
             --resource-group ESS-AI-ML \
             --stream
-    deployment:
-      runs-on: ubuntu-latest
-      environment: prod-env
-      needs: production
-      steps:
-        -name: create online endpoint
-         run: |
-          az ml online-endpoint create --file endpoint.yml --resource-group ESS-AI-ML --workspace-name ess-deneme
-        -name: create online deployment
-         run: |
-          az ml online-deployment create --file deployment.yaml --all-traffic --resource-group ESS-AI-ML --workspace-name ess-deneme
-        -name: test online deployment
-         run: |
-          az ml online-deployment invoke --name my-endpoint --request-file sample_request.json --resource-group ESS-AI-ML --workspace-name ess-deneme
 
-        #yorum...
+  deployment:
+    runs-on: ubuntu-latest
+    environment: prod-env
+    needs: production
+    steps:
+      - name: Create online endpoint
+        run: |
+          az ml online-endpoint create --file endpoint.yml --resource-group ESS-AI-ML --workspace-name ess-deneme
+      - name: Create online deployment
+        run: |
+          az ml online-deployment create --file deployment.yaml --all-traffic --resource-group ESS-AI-ML --workspace-name ess-deneme
+      - name: Test online deployment
+        run: |
+          az ml online-deployment invoke --name my-endpoint --request-file sample_request.json --resource-group ESS-AI-ML --workspace-name ess-deneme
