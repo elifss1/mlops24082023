@@ -1,4 +1,4 @@
-name: Automated Azure Machine Learning Job Trigger
+name: Automated Azure Machine Trigger env
 
 on:
   push:
