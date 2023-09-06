@@ -60,10 +60,10 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Create online endpoint
         run: |
-          az ml online-endpoint create --file endpoint.yml --resource-group ESS-AI-ML --workspace-name ess-deneme
+          az ml online-endpoint create --file ./src/endpoint.yml --resource-group ESS-AI-ML --workspace-name ess-deneme
       - name: Create online deployment
         run: |
-          az ml online-deployment create --file deployment.yaml --all-traffic --resource-group ESS-AI-ML --workspace-name ess-deneme
+          az ml online-deployment create --file ./src/deployment.yaml --all-traffic --resource-group ESS-AI-ML --workspace-name ess-deneme
       - name: Test online deployment
         run: |
-          az ml online-deployment invoke --name my-endpoint --request-file sample_request.json --resource-group ESS-AI-ML --workspace-name ess-deneme
+          az ml online-deployment invoke --name my-endpoint --request-file ./src/sample_request.json --resource-group ESS-AI-ML --workspace-name ess-deneme
