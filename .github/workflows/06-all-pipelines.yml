@@ -1,4 +1,4 @@
-name: Deploy Model AML
+name: Machine Learning Lifecycle
 
 on:
   push:
