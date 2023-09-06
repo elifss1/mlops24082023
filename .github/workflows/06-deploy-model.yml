@@ -64,6 +64,7 @@ jobs:
       - name: Create online deployment
         run: |
           az ml online-deployment create --file ./src/deployment.yml --all-traffic --resource-group ESS-AI-ML --workspace-name ess-deneme
+        continue-on-error: true
       - name: Test online deployment
         run: |
           az ml online-deployment invoke --name my-endpoint --request-file ./src/sample_request.json --resource-group ESS-AI-ML --workspace-name ess-deneme
