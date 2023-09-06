@@ -50,6 +50,14 @@ jobs:
     environment: prod-env
     needs: production
     steps:
+      - name: Check out repo
+        uses: actions/checkout@main
+      - name: Install az ml extension
+        run: az extension add -n ml -y
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Create online endpoint
         run: |
           az ml online-endpoint create --file endpoint.yml --resource-group ESS-AI-ML --workspace-name ess-deneme
