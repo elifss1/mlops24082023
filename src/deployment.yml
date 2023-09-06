@@ -8,5 +8,5 @@ model: azureml:mlops-model@latest
 #environment: 
   #conda_file: ../../model-1/environment/conda.yaml
   #image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04:latest a
-instance_type: Standard_DS2_v2
+instance_type: Standard_DS3_v2
 instance_count: 1
