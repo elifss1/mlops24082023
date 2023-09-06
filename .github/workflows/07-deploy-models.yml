@@ -1,0 +1,39 @@
+name: Deploy model
+
+on:
+    workflow_run:
+      workflows:
+        - Automated Azure Machine Trigger env
+      types:
+        - completed
+  
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    environment: prod-env
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+
+      - name: Install az ml extension
+        run: az extension add -n ml -y
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Create online endpoint
+        run: |
+          az ml online-endpoint create --file ./src/endpoint.yml --resource-group ESS-AI-ML --workspace-name ess-deneme
+        continue-on-error: true
+
+      - name: Create online deployment
+        run: |
+          az ml online-deployment create --file ./src/deployment.yml --all-traffic --resource-group ESS-AI-ML --workspace-name ess-deneme
+        continue-on-error: true
+
+      - name: Test online deployment
+        run: |
+          az ml endpoint invoke --name my-endpoint --request-file ./src/sample_request.json --resource-group ESS-AI-ML --workspace-name ess-deneme
