@@ -1,5 +1,5 @@
 $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
-name: deployment2
+name: deployment3
 endpoint_name: my-endpoint
 model: azureml:mlops-model@latest
 #code_configuration:mlflow modeli oldugu için ihtiyac yok
